@@ -116,21 +116,34 @@ class UserRegistrationViewSet(viewsets.ViewSet):
 #             })
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+from django.contrib.auth import authenticate
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.tokens import RefreshToken
+
 class LoginViewSet(viewsets.ViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserLoginSerializer
     permission_classes = [AllowAny]
 
     def create(self, request):
         serializer = UserLoginSerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.validated_data
-            refresh = RefreshToken.for_user(user)
-            return Response({
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-            })
+            email = serializer.validated_data['email']
+            password = serializer.validated_data['password']
+
+            user = authenticate(request, username=email, password=password)  # هنجرب تسجيل الدخول بالـ email كأنه username
+
+            if user is not None:
+                refresh = RefreshToken.for_user(user)
+                return Response({
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                })
+            else:
+                return Response({'detail': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class FavoriteGarageViewSet(viewsets.ModelViewSet):
     queryset = FavoriteGarage.objects.all()
     serializer_class = FavoriteGarageSerializer
