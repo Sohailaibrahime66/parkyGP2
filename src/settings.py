@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from pathlib import Path
+from datetime import timedelta
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -27,7 +28,7 @@ SECRET_KEY = 'django-insecure-(d5zk&nrmkhnc9l!g(*^rcw6r(q-%$p!ix2c@dk0s(6ffmri$_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*','https://parkygp.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -67,10 +68,15 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FormParser',
         'rest_framework.parsers.MultiPartParser',
     ]
+
 }
+AUTHENTICATION_BACKENDS = [
+    'parking.backends.EmailBackend',  # اسم المسار حسب المشروع
+    'django.contrib.auth.backends.ModelBackend',  # مهم جدًا تفضل موجودة
+]
 
 
-from datetime import timedelta
+
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
@@ -148,7 +154,7 @@ WSGI_APPLICATION = 'src.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'smartization_gp',
+        'NAME': 'smartization_parky',
         'USER': '405565',
         'PASSWORD': '123456@smart',
         'HOST': 'mysql-smartization.alwaysdata.net',
