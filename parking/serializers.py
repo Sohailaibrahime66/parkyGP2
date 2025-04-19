@@ -144,17 +144,11 @@ class UserLoginSerializer(serializers.Serializer):
         email = data.get("email")
         password = data.get("password")
 
-        if email and password:
-            user = authenticate(email=email, password=password)  # ✅ Email-based auth
-
-            if user:
-                if not user.is_active:
-                    raise serializers.ValidationError("User is deactivated.")
-                return user
-            else:
-                raise serializers.ValidationError("Invalid email or password.")
-        else:
+        if not email or not password:
             raise serializers.ValidationError("Both email and password are required.")
+
+        return data
+
 
 class PasswordResetSerializer(serializers.Serializer):
     email = serializers.EmailField()
