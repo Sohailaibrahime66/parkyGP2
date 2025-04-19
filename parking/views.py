@@ -100,6 +100,22 @@ class UserRegistrationViewSet(viewsets.ViewSet):
             return Response({"message": "User registered successfully!"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 # 6. Login View
+# class LoginViewSet(viewsets.ViewSet):
+#     queryset = User.objects.all()
+#     serializer_class = UserLoginSerializer
+#     permission_classes = [AllowAny]
+
+#     def create(self, request):
+#         serializer = UserLoginSerializer(data=request.data)
+#         if serializer.is_valid():
+#             user = serializer.validated_data
+#             refresh = RefreshToken.for_user(user)
+#             return Response({
+#                 'refresh': str(refresh),
+#                 'access': str(refresh.access_token),
+#             })
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class LoginViewSet(viewsets.ViewSet):
     queryset = User.objects.all()
     serializer_class = UserLoginSerializer
@@ -115,7 +131,6 @@ class LoginViewSet(viewsets.ViewSet):
                 'access': str(refresh.access_token),
             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 class FavoriteGarageViewSet(viewsets.ModelViewSet):
     queryset = FavoriteGarage.objects.all()
     serializer_class = FavoriteGarageSerializer
