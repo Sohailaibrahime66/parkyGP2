@@ -141,10 +141,20 @@ class UserLoginSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True)
 
     def validate(self, data):
-        user = authenticate(email=data['email'], password=data['password'])
-        if user is None:
-            raise serializers.ValidationError("Invalid credentials.")
-        return user
+        email = data.get("email")
+        password = data.get("password")
+
+        if email and password:
+            user = authenticate(email=email, password=password)  # ✅ Email-based auth
+
+            if user:
+                if not user.is_active:
+                    raise serializers.ValidationError("User is deactivated.")
+                return user
+            else:
+                raise serializers.ValidationError("Invalid email or password.")
+        else:
+            raise serializers.ValidationError("Both email and password are required.")
 
 class PasswordResetSerializer(serializers.Serializer):
     email = serializers.EmailField()
