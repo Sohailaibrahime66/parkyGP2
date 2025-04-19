@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-(d5zk&nrmkhnc9l!g(*^rcw6r(q-%$p!ix2c@dk0s(6ffmri$_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*','https://parky-3.onrender.com']
+ALLOWED_HOSTS = ['*','https://parkygp.onrender.com']
 
 
 # Application definition
@@ -79,6 +79,7 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,6 +88,39 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    
+
+]
+CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOWED_ORIGINS = [
+    "https://parky-dashboard.vercel.app",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
+CORS_EXPOSE_HEADERS = [
+    'Content-Type',
+    'X-CSRFToken',
+    'Authorization',
 ]
 
 ROOT_URLCONF = 'src.urls'
@@ -108,7 +142,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'src.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
@@ -122,16 +155,7 @@ DATABASES = {
         'PORT':'3306'
 }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'smartization',
-#         'USER': 'root',
-#         'PASSWORD': '1234',
-#         'HOST': 'localhost',  # Or your MySQL server address
-#         'PORT': '3306',  # Default MySQL port
-#     }
-# }
+# settings.py
 
 
 # Password validation
