@@ -130,19 +130,19 @@ class LoginViewSet(viewsets.ViewSet):
         if serializer.is_valid():
             email = serializer.validated_data['email']
             password = serializer.validated_data['password']
-
-            user = authenticate(request, username=email, password=password)  # هنجرب تسجيل الدخول بالـ email كأنه username
-
+            user = authenticate(request, username=email, password=password)
             if user is not None:
                 refresh = RefreshToken.for_user(user)
                 return Response({
                     'refresh': str(refresh),
                     'access': str(refresh.access_token),
                 })
-            else:
-                return Response({'detail': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED)
-
+            return Response({'detail': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def list(self, request):  # دي مهمة
+        return Response({"message": "Login endpoint. Please use POST."})
+
 
 class FavoriteGarageViewSet(viewsets.ModelViewSet):
     queryset = FavoriteGarage.objects.all()
