@@ -121,7 +121,6 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
-
 class LoginViewSet(viewsets.ViewSet):
     permission_classes = [AllowAny]
 
@@ -140,8 +139,9 @@ class LoginViewSet(viewsets.ViewSet):
             return Response({'detail': 'Invalid email or password'}, status=status.HTTP_401_UNAUTHORIZED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def list(self, request):  # دي مهمة
-        return Response({"message": "Login endpoint. Please use POST."})
+    def list(self, request):
+        return Response({"message": "Login endpoint"})
+
 
 
 class FavoriteGarageViewSet(viewsets.ModelViewSet):
