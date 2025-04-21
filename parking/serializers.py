@@ -65,22 +65,22 @@ class ParkingNotificationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class FamilyCommunitySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FamilyCommunity
-        fields = '__all__'
+# class FamilyCommunitySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = FamilyCommunity
+#         fields = '__all__'
 
 
-class FamilyMemberSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FamilyMember
-        fields = '__all__'
+# class FamilyMemberSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = FamilyMember
+#         fields = '__all__'
 
 
-class FamilyInvitationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FamilyInvitation
-        fields = '__all__'
+# class FamilyInvitationSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = FamilyInvitation
+#         fields = '__all__'
 
 
 class FavoriteGarageSerializer(serializers.ModelSerializer):
