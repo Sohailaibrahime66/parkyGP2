@@ -69,14 +69,14 @@ class ParkingNotificationViewSet(viewsets.ModelViewSet):
     serializer_class = ParkingNotificationSerializer
 
 
-class FamilyCommunityViewSet(viewsets.ModelViewSet):
-    queryset = FamilyCommunity.objects.all()
-    serializer_class = FamilyCommunitySerializer
+# class FamilyCommunityViewSet(viewsets.ModelViewSet):
+#     queryset = FamilyCommunity.objects.all()
+#     serializer_class = FamilyCommunitySerializer
 
 
-class FamilyMemberViewSet(viewsets.ModelViewSet):
-    queryset = FamilyMember.objects.all()
-    serializer_class = FamilyMemberSerializer
+# class FamilyMemberViewSet(viewsets.ModelViewSet):
+#     queryset = FamilyMember.objects.all()
+#     serializer_class = FamilyMemberSerializer
 
 class ParkingSubscriptionViewSet(viewsets.ModelViewSet):
     queryset = ParkingSubscription.objects.all()
@@ -153,39 +153,39 @@ class FavoriteGarageViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 # Favorite Garage
 
-class FamilyInvitationViewSet(viewsets.ModelViewSet):
-    queryset = FamilyInvitation.objects.all()
-    serializer_class = FamilyInvitationSerializer
+# class FamilyInvitationViewSet(viewsets.ModelViewSet):
+#     queryset = FamilyInvitation.objects.all()
+#     serializer_class = FamilyInvitationSerializer
 
 
-    def create(self, request, *args, **kwargs):
-        email = request.data.get("email")
-        family_id = request.data.get("family_id")
-        try:
-            invitee = User.objects.get(email=email)
-            family = FamilyCommunity.objects.get(id=family_id)
-            invitation = FamilyInvitation.objects.create(
-                inviter=request.user,
-                invitee=invitee,
-                family=family
-            )
-            return Response({"message": "Invitation sent."})
-        except User.DoesNotExist:
-            return Response({"message": "User not found"}, status=404)
-        except FamilyCommunity.DoesNotExist:
-            return Response({"message": "Family not found"}, status=404)
+#     def create(self, request, *args, **kwargs):
+#         email = request.data.get("email")
+#         family_id = request.data.get("family_id")
+#         try:
+#             invitee = User.objects.get(email=email)
+#             family = FamilyCommunity.objects.get(id=family_id)
+#             invitation = FamilyInvitation.objects.create(
+#                 inviter=request.user,
+#                 invitee=invitee,
+#                 family=family
+#             )
+#             return Response({"message": "Invitation sent."})
+#         except User.DoesNotExist:
+#             return Response({"message": "User not found"}, status=404)
+#         except FamilyCommunity.DoesNotExist:
+#             return Response({"message": "Family not found"}, status=404)
 
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        accepted = request.data.get("accepted")
-        instance.accepted = accepted
-        instance.save()
+#     def update(self, request, *args, **kwargs):
+#         instance = self.get_object()
+#         accepted = request.data.get("accepted")
+#         instance.accepted = accepted
+#         instance.save()
 
-        if accepted:
-            FamilyMember.objects.create(family=instance.family, user=instance.invitee)
-            return Response({"message": "Invitation accepted and user added to family."})
-        else:
-            return Response({"message": "Invitation declined. Notification sent."})
+#         if accepted:
+#             FamilyMember.objects.create(family=instance.family, user=instance.invitee)
+#             return Response({"message": "Invitation accepted and user added to family."})
+#         else:
+#             return Response({"message": "Invitation declined. Notification sent."})
 from .serializers import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
