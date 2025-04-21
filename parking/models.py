@@ -222,32 +222,32 @@ class ParkingNotification(models.Model):
     def __str__(self):
         return f"Notification for {self.user.username} - {self.message.type}"
 
-class FamilyCommunity(models.Model):
-    name = models.CharField(max_length=100, unique=True)  # Family name
-    created_by = models.ForeignKey('User', on_delete=models.CASCADE, related_name="family_creator")  # Admin of the family
-    created_at = models.DateTimeField(auto_now_add=True)
+# class FamilyCommunity(models.Model):
+#     name = models.CharField(max_length=100, unique=True)  # Family name
+#     created_by = models.ForeignKey('User', on_delete=models.CASCADE, related_name="family_creator")  # Admin of the family
+#     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"Family Community: {self.name}"
+#     def __str__(self):
+#         return f"Family Community: {self.name}"
 
-class FamilyMember(models.Model):
-    family = models.ForeignKey(FamilyCommunity, on_delete=models.CASCADE, related_name="members")
-    user = models.ForeignKey('User', on_delete=models.CASCADE)
-    role = models.CharField(max_length=20, choices=[('Admin', 'Admin'), ('Member', 'Member')], default='Member')
-    joined_at = models.DateTimeField(auto_now_add=True)
+# class FamilyMember(models.Model):
+#     family = models.ForeignKey(FamilyCommunity, on_delete=models.CASCADE, related_name="members")
+#     user = models.ForeignKey('User', on_delete=models.CASCADE)
+#     role = models.CharField(max_length=20, choices=[('Admin', 'Admin'), ('Member', 'Member')], default='Member')
+#     joined_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"{self.user.username} - {self.role} in {self.family.name}"
+#     def __str__(self):
+#         return f"{self.user.username} - {self.role} in {self.family.name}"
 
-class FamilyInvitation(models.Model):
-    inviter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_invitations')
-    invitee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_invitations')
-    family = models.ForeignKey(FamilyCommunity, on_delete=models.CASCADE)
-    accepted = models.BooleanField(null=True, blank=True)  # None = pending, True = accepted, False = rejected
-    created_at = models.DateTimeField(auto_now_add=True)
+# class FamilyInvitation(models.Model):
+#     inviter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_invitations')
+#     invitee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_invitations')
+#     family = models.ForeignKey(FamilyCommunity, on_delete=models.CASCADE)
+#     accepted = models.BooleanField(null=True, blank=True)  # None = pending, True = accepted, False = rejected
+#     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"Invitation from {self.inviter} to {self.invitee} for {self.family.name}"
+#     def __str__(self):
+#         return f"Invitation from {self.inviter} to {self.invitee} for {self.family.name}"
 
 class FavoriteGarage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorite_garages')
