@@ -89,27 +89,27 @@ class ParkingNotificationAdmin(admin.ModelAdmin):
     search_fields = ('user__email', 'message__type')
 
 
-# FamilyCommunity Admin
-@admin.register(FamilyCommunity)
-class FamilyCommunityAdmin(admin.ModelAdmin):
-    list_display = ('name', 'created_by', 'created_at')
-    search_fields = ('name', 'created_by__email')
+# # FamilyCommunity Admin
+# @admin.register(FamilyCommunity)
+# class FamilyCommunityAdmin(admin.ModelAdmin):
+#     list_display = ('name', 'created_by', 'created_at')
+#     search_fields = ('name', 'created_by__email')
 
 
-# FamilyMember Admin
-@admin.register(FamilyMember)
-class FamilyMemberAdmin(admin.ModelAdmin):
-    list_display = ('user', 'family', 'role', 'joined_at')
-    list_filter = ('role',)
-    search_fields = ('user__email', 'family__name')
+# # FamilyMember Admin
+# @admin.register(FamilyMember)
+# class FamilyMemberAdmin(admin.ModelAdmin):
+#     list_display = ('user', 'family', 'role', 'joined_at')
+#     list_filter = ('role',)
+#     search_fields = ('user__email', 'family__name')
 
 
-# FamilyInvitation Admin
-@admin.register(FamilyInvitation)
-class FamilyInvitationAdmin(admin.ModelAdmin):
-    list_display = ('inviter', 'invitee', 'family', 'accepted', 'created_at')
-    list_filter = ('accepted',)
-    search_fields = ('inviter__email', 'invitee__email', 'family__name')
+# # FamilyInvitation Admin
+# @admin.register(FamilyInvitation)
+# class FamilyInvitationAdmin(admin.ModelAdmin):
+#     list_display = ('inviter', 'invitee', 'family', 'accepted', 'created_at')
+#     list_filter = ('accepted',)
+#     search_fields = ('inviter__email', 'invitee__email', 'family__name')
 
 
 # FavoriteGarage Admin
